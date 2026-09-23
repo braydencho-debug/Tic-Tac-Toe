@@ -16,30 +16,51 @@ function Square({value, onSquareClick}) { //we are passing the value prop to the
 //  without knowing or caring how the state update actually happens.
 
 export default function Board() {
-  const [square, setSquare] = useState(Array(9).fill(null)); //creates an array with 9 elements and fills it with null values
+  const [xIsNext, setXIsNext] = useState(true);
+  const [squares, setSquares] = useState(Array(9).fill(null)); //creates an array with 9 elements and fills it with null values
 
-function handleClick(i) { //JavaScript supports closures which means an inner function can access Board's state and update function.
-  const nextSquares = square.slice(); //creates a copy of the square array
-  nextSquares[i] = "X";
-  setSquare(nextSquares); // updates the state with the new array
+function handleClick(i) {
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+  const nextSquares = squares.slice(); //creates a copy of the square array
+    if (xIsNext) {
+      nextSquares[i] = "X";
+    } else {
+      nextSquares[i] = "O";
+    }
+   setXIsNext(!xIsNext);
+  setSquares(nextSquares); // updates the state with the new array
 }
-
+const winner = calculateWinner(squares);
+const draw = !squares.includes(null);
+  let status;
+  if (winner) {
+    status = "Winner: " + winner;
+  } else if (draw) {
+    status = "Draw"
+  } else { 
+    status = "Next player: " + (xIsNext ? "X" : "O");
+    
+  };
   return ( //Each Square will now receive a value prop that will either be 'X', 'O', or null for empty squares.
     <>
+      <div className="status">{status}</div>
     <div className="board-row">
-      <Square value={square[0]} onSquareClick={() => handleClick(0)} />
-      <Square value={square[1]} onSquareClick={() => handleClick(1)} />
-      <Square value={square[2]} onSquareClick={() => handleClick(2)} />
+      
+      <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+      <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
+      <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
 </div>
 <div className="board-row">
-      <Square value={square[3]} onSquareClick={() => handleClick(3)} />
-      <Square value={square[4]} onSquareClick={() => handleClick(4)} />
-      <Square value={square[5]} onSquareClick={() => handleClick(5)} />
+      <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
+      <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
+      <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
 </div>
 <div className="board-row">
-      <Square value={square[6]} onSquareClick={() => handleClick(6)} />
-      <Square value={square[7]} onSquareClick={() => handleClick(7)} />
-      <Square value={square[8]} onSquareClick={() => handleClick(8)} />
+      <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
+      <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
+      <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
 </div>
     </>
   );
@@ -47,3 +68,23 @@ function handleClick(i) { //JavaScript supports closures which means an inner fu
 
 //this is where we are passing the value prop to the square component
 //() => handleClick(0) is an arrow function, which is a shorter way to define functions.
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
