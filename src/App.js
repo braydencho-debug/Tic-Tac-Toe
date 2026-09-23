@@ -80,7 +80,7 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) { //i is a counter starting at 0  till 8 becauses lines.length is amount of lines (add 1 bc i++)
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) { //&& means 'and' also When you put a value inside an if, JavaScript asks, "Is there something here, or is it empty?", === shows identical values
-      return squares[a];//retunr to line that called function 
+      return squares[a];//return to line that called function 
     }
   }
   return null; 
