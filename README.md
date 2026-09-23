@@ -6,6 +6,6 @@ How to run it: To run the game you should run 'npm install' to install the depen
 
 Your contribution: I added a feature that leads that notifies players if there is a draw! 
 
-What you learned: Briefly describe one challenge and how you approached it. I ran into a challenge undertsanding how the 'useState' feature should be used. To figure this out I went to the FSAB open hours, where I learned that this feautre is somehting we import from 'react' because it is essentaly a premade function and I ended up learning all the commands needed in the terminal to properly clone and edit my project on my local computer
+What you learned: Briefly describe one challenge and how you approached it. I ran into a challenge undertsanding how the 'useState' feature should be used. To figure this out I went to the FSAB open hours, where I learned that this feature is somehting we import from 'react' because it is essentaly a premade function and I ended up learning all the commands needed in the terminal to properly clone and edit my project on my local computer. I also looked online to the tutorial and read websites explaining how useState is used to store variables that should re-render the screen when changed. These all contirbuted to how I overcame and apporached this challenge.
 
-References: Credit any tutorials, starters, or other resources you used.
+References: I used the tutorial to make Tic-Tac-Toe at this link:https://react.dev/learn/tutorial-tic-tac-toe
